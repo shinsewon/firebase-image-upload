@@ -16,19 +16,17 @@ class MyUploadAdapter {
           uploadTask.on(
             "state_changed", // or 'state_changed'
             function (snapshot) {
-              console.log("snapshot.state11111>>>>>>>>", snapshot.state);
               // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
               const progress =
                 (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-              // console.log("Upload is " + progress + "% done");
+              console.log("Upload is " + progress + "% done");
               switch (snapshot.state) {
-                case "paused": // or 'paused'
-                  // console.log("Upload is paused");
-                  console.log("snapshot.state22222>>>>>>>>", snapshot.state);
+                case "paused":
+                  console.log("Upload is paused");
+
                   break;
-                case "running": // or 'running'
-                  // console.log("Upload is running");
-                  console.log("snapshot.state3333333>>>>>>>>", snapshot.state);
+                case "running":
+                  console.log("Upload is running");
                   break;
               }
             },
