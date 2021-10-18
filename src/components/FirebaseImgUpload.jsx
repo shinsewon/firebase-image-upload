@@ -8,6 +8,7 @@ function FirebaseImgUpload(props) {
   const [url, setUrl] = useState("");
   const [progress, setProgress] = useState(0);
 
+
   console.log("image>>>", image);
 
   const handleChange = (e) => {
@@ -31,7 +32,7 @@ function FirebaseImgUpload(props) {
         console.log(error);
       },
       () => {
-        storage
+          storage
           .ref("images")
           .child(image.name)
           .getDownloadURL()
@@ -42,11 +43,14 @@ function FirebaseImgUpload(props) {
     );
   };
 
+
+
   return (
     <div>
       firebase img
       <progress value={progress} max={100} />
       <br />
+
       <input type="file" onChange={handleChange} />
       <button onClick={handleUpload}>Upload</button>
       <br />

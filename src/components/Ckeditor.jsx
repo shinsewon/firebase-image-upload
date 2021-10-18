@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import { storage } from "../firebase";
+import ReactHtmlParser from 'react-html-parser'
+import { storage,db } from "../firebase";
 
 class MyUploadAdapter {
   constructor(loader) {
@@ -70,11 +71,40 @@ class MyUploadAdapter {
 function Ckeditor(props) {
   const [data, setData] = useState("");
   const [tagData, setTagData] = useState(null);
+  const [getFirebaseTagData,setFirebaseTagData] =useState(null)
 
   const handleOnchange = (_, editor) => {
     const data = editor.getData();
     setTagData(data);
   };
+
+  const handleBtn=async ()=>{
+      console.log('data>>>',data)
+    await db.collection('editor').add({
+        tagData
+    })
+      setData('')
+  }
+
+    const handleBtn2=async ()=>{
+        console.log('data>>>',data)
+        await db.collection('editor').add({
+            test:'HI'
+        })
+        setData('')
+    }
+
+
+
+    const handleGetFirebase =async ()=>{
+      const array=[]
+
+   const response = await db.collection("editor").get()
+        response.forEach(docs => array.push(docs.data()))
+
+        setFirebaseTagData(array[0].tagData)
+        console.log('array<><>>>',array)
+  }
 
   return (
     <>
@@ -82,7 +112,7 @@ function Ckeditor(props) {
         editor={ClassicEditor}
         data={data}
         onChange={handleOnchange}
-        onReady={(editor) => {
+        onReady={(editor) => { // 사진 업로드
           editor.plugins.get("FileRepository").createUploadAdapter = (
             loader
           ) => {
@@ -91,6 +121,15 @@ function Ckeditor(props) {
         }}
       />
       {tagData}
+      <button onClick={handleBtn}>파이어 베이스 업로드</button>
+        <button onClick={handleBtn2}>파이어 베이스 텍스트 업로드</button>
+        <button onClick={handleGetFirebase}>파이어 베이스 가져오기</button>
+
+        <div>
+            {getFirebaseTagData}
+        </div>
+        {/*<div dangerouslySetInnerHTML={ {__html: getFirebaseTagData}}/>*/}
+        {ReactHtmlParser(getFirebaseTagData)}
     </>
   );
 }

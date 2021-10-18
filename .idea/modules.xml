@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$USER_HOME$/Library/Mobile Documents/com~apple~CloudDocs/Desktop/코드/firebase-auth-react/.idea/firebase-auth-react.iml" filepath="$USER_HOME$/Library/Mobile Documents/com~apple~CloudDocs/Desktop/코드/firebase-auth-react/.idea/firebase-auth-react.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/firebase-image-upload.iml" filepath="$PROJECT_DIR$/.idea/firebase-image-upload.iml" />
     </modules>
   </component>
